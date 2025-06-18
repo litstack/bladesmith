@@ -48,10 +48,6 @@ class TransRoute
             return $this->getFallbackLocale();
         }
 
-        if (in_array($this->getBrowserLocale(), config('translatable.locales'))) {
-            return $this->getBrowserLocale();
-        }
-
         return $this->getFallbackLocale();
     }
 
