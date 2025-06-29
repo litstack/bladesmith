@@ -16,7 +16,7 @@
 	},
 	"require-dev": {
 		"litstack/litstack": "^3.0",
-		"orchestra/testbench": "^5.3||^6.0",
+		"orchestra/testbench": "^5.3||^6.0|^7.0|^8.0",
 		"mockery/mockery": "^1.4",
 		"paquettg/php-html-parser": "^3.0"
 	},
