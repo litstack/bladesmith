@@ -107,17 +107,19 @@ class TransRoute
     {
         $uri = $this->compileUri($uri, $locale);
 
-        if ($locale != $this->getFallbackLocale()) {
-            $route = Route::prefix($locale)
-                ->as("{$locale}.")
-                ->get($uri, $action)
-                ->translator(fn ($locale) => request()->route()->parameters());
+        // Determine if the locale prefix should be used in the route URI.
+        $shouldUsePrefix = config('translatable.default_locale_url_prefix', true) === true
+            || $locale !== $this->getFallbackLocale();
+
+        if ($shouldUsePrefix) {
+            $routeBuilder = Route::prefix($locale)->as("{$locale}.");
         } else {
-            $route = Route::as("{$locale}.")
-                ->get($uri, $action)
-                ->translator(fn ($locale) => request()->route()->parameters());
+            $routeBuilder = Route::as("{$locale}.");
         }
 
+        $route = $routeBuilder
+            ->get($uri, $action)
+            ->translator(fn ($locale) => request()->route()->parameters());
 
         return $route;
     }
